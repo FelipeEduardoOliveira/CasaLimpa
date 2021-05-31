@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
+import {DeletUsers} from '../../Service/api';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,10 +15,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EmailIcon from '@material-ui/icons/Email';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import Swal from 'sweetalert2';
 
 
-
-function ListUser({nome, tipo, celular, endereco, email, id}){
+function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
 
 
     const useStyles = makeStyles((theme) => ({
@@ -52,7 +53,40 @@ function ListUser({nome, tipo, celular, endereco, email, id}){
         }
         const deleteUser = (id)=>{
 
-            alert(`Tem certeza que deseja exclui o id ${id} ?`)
+          
+             Swal.fire({
+              title: 'Tem certeza?',
+              text: `Você está prestes a excluir o usuario: ${name}`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Sim, deletar'
+            }).then((result) => {
+              if (result.isConfirmed) {
+               
+                DeletUsers(id)
+                .then(async()=>{
+                  await Swal.fire(
+                    'Deleted!',
+                    'O usuario foi excluido.',
+                    'success'
+                  )
+                  window.location.reload();
+                })
+                .catch(async()=>{
+
+                  await Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algo deu errado, tente novamente mais tarde',
+                  })
+                  window.location.reload();
+                });
+                
+              }
+            })
+            
         }
 
     return(
@@ -67,11 +101,11 @@ function ListUser({nome, tipo, celular, endereco, email, id}){
         title={nome}
         subheader={tipo}
       />
-      {/* <CardMedia
+      <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      /> */}
+        image={fotoUrl}
+        title={`Foto do usuario: ${nome}`}
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
             Telefone: {celular}
@@ -86,7 +120,7 @@ function ListUser({nome, tipo, celular, endereco, email, id}){
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="edit">
+        <IconButton aria-label="edit" onClick={()=>{console.log(fotoUrl)}}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete" onClick={()=>deleteUser(id)}>
