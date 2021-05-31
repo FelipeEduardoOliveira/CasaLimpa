@@ -1,0 +1,41 @@
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+}
+.HeaderContainer .HeaderLogo img {
+  width: 200px;
+}
+.HeaderContainer .HeaderMenu {
+  width: 25%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.HeaderContainer .HeaderMenu a {
+  font-size: 20px;
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+.HeaderContainer .HeaderMenu a svg {
+  width: 35px;
+}
+.HeaderContainer .HeaderMenu a:hover svg {
+  transform: scale(1.2);
+}
+
+@media (max-width: 540px) {
+  .HeaderContainer {
+    justify-content: center;
+  }
+
+  .HeaderContainer .HeaderMenu {
+    display: none;
+  }
+}

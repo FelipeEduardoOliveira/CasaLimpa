@@ -1,0 +1,15 @@
+.containerListUser {
+  display: grid;
+  /* background-color: rgb(220, 245, 221); */
+  justify-content: center;
+  grid-template-columns: 350px 350px;
+  grid-gap: 10px;
+}
+
+@media (max-width: 740px) {
+  .containerListUser {
+    grid-template-columns: 350px;
+    width: 100%;
+    margin-bottom: 100px;
+  }
+}
