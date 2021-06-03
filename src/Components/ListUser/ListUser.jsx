@@ -16,6 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EmailIcon from '@material-ui/icons/Email';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import Swal from 'sweetalert2';
+import NoPhoto from '../../assets/noPhoto.jpg';
 
 
 function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
@@ -31,7 +32,7 @@ function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
           paddingTop: '56.25%', // 16:9
         },
         avatar: {
-          backgroundColor: red[500],
+          backgroundColor: '#69cf5f',
         },
       }));
       
@@ -103,7 +104,7 @@ function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
       />
       <CardMedia
         className={classes.media}
-        image={fotoUrl}
+        image={fotoUrl ? fotoUrl : NoPhoto}
         title={`Foto do usuario: ${nome}`}
       />
       <CardContent>
@@ -120,9 +121,9 @@ function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="edit" onClick={()=>{console.log(fotoUrl)}}>
+        {/* <IconButton aria-label="edit" onClick={()=>{console.log(fotoUrl)}}>
           <EditIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton aria-label="delete" onClick={()=>deleteUser(id)}>
           <DeleteIcon />
         </IconButton>

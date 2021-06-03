@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.css';
-import CadastraUsuario from '../../Components/CadastroUsuario/CadastraUsuario';
+import FormLogin from '../../Components/Login/';
+import {logOut } from '../../Service/api'
+
 export default function HomePage(){
-    return(
-        <div className='HomePageContainer'>
+
+
+    
+    return (
+        <div className='HomaPageLoginContainer'>
            
-           <CadastraUsuario />
-           
+          <FormLogin />
         </div>
-    );
+      );
 }

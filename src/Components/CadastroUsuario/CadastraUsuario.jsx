@@ -45,7 +45,7 @@ const cleanFields = ()=>{
 }
 
 useEffect(()=>{
-
+      
     setTimeout(function(){ setRodarIcon(0); }, 2000);
 
 },[rodarIcon])
@@ -62,6 +62,7 @@ const saveUser = ()=>{
     })
       return
   }
+
   setLoading(true);
   cadastraUser(name, email, endereco, celular, tipo, uid)
   .then((response)=>{
@@ -74,6 +75,13 @@ const saveUser = ()=>{
       uploadPhoto(imageStorage, uid);
     }else{
       setLoading(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cadastrado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
     
   })

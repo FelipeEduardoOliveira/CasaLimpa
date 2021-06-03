@@ -5,6 +5,8 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddIcon from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {logOut} from '../../Service/api';
 import './style.css';
 
 const useStyles = makeStyles({
@@ -21,20 +23,20 @@ export default function SimpleBottomNavigation() {
 
   const changePage=(e, value)=>{
     if(value === 0){
-      window.location='/';
+      window.location='/CadastraUSuario';
     }
     if(value === 1){
-      window.location='/usuarios';
+      window.location='/';
     }
   }
 
   useEffect(()=>{
     const rota = window.location.pathname;
 
-    if(rota === '/'){
+    if(rota === '/CadastraUSuario'){
       setValue(0);
     }
-    if(rota === '/usuarios'){
+    if(rota === '/'){
       setValue(1);
     }
   })
@@ -49,6 +51,7 @@ export default function SimpleBottomNavigation() {
     >
       <BottomNavigationAction label="Novo Usuario"  icon={<AddIcon />} />
       <BottomNavigationAction label="Usuarios"  icon={<PersonIcon />} />
+      <BottomNavigationAction label="Log Out"  icon={<ExitToAppIcon />} onClick={()=>logOut()}/>
     </BottomNavigation>
     </div>
   );
