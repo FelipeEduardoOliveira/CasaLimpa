@@ -18,11 +18,11 @@ O projeto consiste em poder cadastrar funcionarios que fazem parte da sua rede d
 
 ## Funcionalidades existentes
 
-➕ Adicionar um usuario
-📸 Adicionar uma foto para o usuario ( Caso você não adicione um foto, aparecera uma por padrão)
-📱  Enviar uma mensagem para o usuario através do WhatsApp
-✉️ Enviar uma mensagem para o usuario atevés do email
-⛔ Excluir um usuário
+##### ➕ Adicionar um usuario
+##### 📸 Adicionar uma foto para o usuario ( Caso você não adicione um foto, aparecera uma por padrão)
+##### 📱  Enviar uma mensagem para o usuario através do WhatsApp
+##### ✉️ Enviar uma mensagem para o usuario atevés do email
+##### ⛔ Excluir um usuário
 
 ### Design responsivo 💻 📱
 
@@ -34,7 +34,7 @@ Painel para se logar, pensando em segurança para que ultilizar o projeto
 
 ### Publicação 🌐
 
-Publicado através da vercel, confira! https://casa-limpa.vercel.app/
+Publicado através da vercel, confira! <a href='https://casa-limpa.vercel.app/' target="_blank">Verificar Projeto</a>
 
 ## <h1 align="center" color="red">Dev</h1>
 Felipe Oliveira
