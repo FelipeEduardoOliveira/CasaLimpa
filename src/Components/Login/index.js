@@ -16,8 +16,10 @@ import Logo from "../../assets/icons/dash.png";
 
 function FormLogin() {
   const [rembember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const log = (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const email = e.target.username.value;
@@ -32,6 +34,7 @@ function FormLogin() {
               title: "Oops...",
               text: "Email nao cadastrado",
             });
+            setLoading(false);
           }
           if (response.code === "auth/wrong-password") {
             Swal.fire({
@@ -39,11 +42,14 @@ function FormLogin() {
               title: "Oops...",
               text: "Senha inválida",
             });
+            setLoading(false);
           }
           window.location = "/";
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err.data.code);
+          setLoading(false);
         });
     } else {
       Swal.fire({
@@ -51,6 +57,7 @@ function FormLogin() {
         title: "Oops...",
         text: "Revise todos os campos",
       });
+      setLoading(false);
     }
   };
 
@@ -88,7 +95,9 @@ function FormLogin() {
           <a>Forgot Password</a>
         </FormLoginRememberAndForgot> */}
 
-        <FormLoginButton type="submit">Log in</FormLoginButton>
+        <FormLoginButton type="submit">
+          {loading ? "Carregando....." : "Log in"}
+        </FormLoginButton>
       </FormLoginForm>
       {/* <FormLoginRegisterButton onClick={() => alert("Register")}>
         Registrar

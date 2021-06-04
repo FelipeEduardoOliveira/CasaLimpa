@@ -125,13 +125,13 @@ function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
           <EditIcon />
         </IconButton> */}
         <IconButton aria-label="delete" onClick={()=>deleteUser(id)}>
-          <DeleteIcon />
+          <DeleteIcon className='Lixeira'/>
         </IconButton>
         <IconButton aria-label="whatsApp" onClick={()=>sendWhatsApp(celular, nome)}>
-          <WhatsAppIcon />
+          <WhatsAppIcon className='whatsApp'/>
         </IconButton>
         <IconButton aria-label="email" onClick={()=>sendEmail(email)}>
-          <EmailIcon />
+          <EmailIcon className='Email'/>
         </IconButton>
        
       </CardActions>
