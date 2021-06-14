@@ -18,6 +18,7 @@ export default function Header(){
            </div>
 
            <div className='HeaderMenu'>
+               
                <Link to='/CadastraUsuario'>
                    <AddIcon/>
                    Novo Usuario

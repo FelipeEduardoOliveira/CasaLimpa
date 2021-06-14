@@ -14,8 +14,22 @@ export async function cadastraUser(nome, email, endereco, celular, tipo, uid) {
     });
 }
 
-export async function GetUsers() {
-  return await firebase.firestore().collection("cadastraUsuario").get();
+export async function GetUsers(data) {
+  console.log(data);
+
+  if (data === undefined || data.length === 0) {
+    return await firebase
+      .firestore()
+      .collection("cadastraUsuario")
+      // .where("tipo", "not-in", ["Gerador"])
+      .get();
+  } else {
+    return await firebase
+      .firestore()
+      .collection("cadastraUsuario")
+      .where("tipo", "not-in", data)
+      .get();
+  }
 }
 export async function DeletUsers(id) {
   return await firebase

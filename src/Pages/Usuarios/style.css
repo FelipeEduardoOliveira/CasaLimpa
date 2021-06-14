@@ -6,6 +6,28 @@
   grid-gap: 10px;
 }
 
+.FiltroClass {
+  /* position: fixed; */
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
+  width: 100%;
+  /* height: 80%; */
+  /* bottom: 40px; */
+  /* right: 20px; */
+}
+.FiltroClass .FiltroClassContainerList {
+  margin: 0;
+  padding: 0;
+}
+.FiltroClass .FiltroClassContainerList li {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
 @media (max-width: 740px) {
   .containerListUser {
     grid-template-columns: 350px;
