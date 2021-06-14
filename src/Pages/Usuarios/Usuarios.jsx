@@ -97,7 +97,7 @@ export default function Usuarios(){
                             color="primary"
                         />
 
-                Coletor
+                Coletador
                 </label>
 
             <label>
