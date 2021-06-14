@@ -93,7 +93,7 @@ export default function Usuarios(){
                         <Checkbox
                             // checked={state.checkedB}
                             onChange={(e)=>changeCkecked(e)}
-                            name="Coletor"
+                            name="Coletador"
                             color="primary"
                         />
 
