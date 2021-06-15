@@ -66,11 +66,11 @@ const saveUser = ()=>{
 
   setLoading(true);
   cadastraUser(name, email, endereco, celular, tipo, uid)
-  .then((response)=>{
+  .then(async (response)=>{
     
     alert('Retornou Then');
     console.log(response);
-    cleanFields();
+  await cleanFields();
 
     if(imageStorage){
       alert('Tem foto');
