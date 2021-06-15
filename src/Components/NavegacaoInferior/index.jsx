@@ -23,7 +23,7 @@ export default function SimpleBottomNavigation() {
 
   const changePage=(e, value)=>{
     if(value === 0){
-      window.location='/CadastraUSuario';
+      window.location='/CadastraUsuario';
     }
     if(value === 1){
       window.location='/';
