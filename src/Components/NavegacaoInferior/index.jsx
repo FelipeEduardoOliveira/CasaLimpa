@@ -33,7 +33,7 @@ export default function SimpleBottomNavigation() {
   useEffect(()=>{
     const rota = window.location.pathname;
 
-    if(rota === '/CadastraUSuario'){
+    if(rota === '/CadastraUsuario'){
       setValue(0);
     }
     if(rota === '/'){
