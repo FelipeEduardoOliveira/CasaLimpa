@@ -51,6 +51,7 @@ useEffect(()=>{
 },[rodarIcon])
 
 const saveUser = ()=>{
+  alert('Entrou na função');
 
   const uid = Date.now();
 
@@ -67,13 +68,15 @@ const saveUser = ()=>{
   cadastraUser(name, email, endereco, celular, tipo, uid)
   .then((response)=>{
     
-    // alert('Usuario cadastrado com sucesso!');
+    alert('Retornou Then');
     console.log(response);
     cleanFields();
 
     if(imageStorage){
+      alert('Tem foto');
       uploadPhoto(imageStorage, uid);
     }else{
+      alert('Não tem foto');
       setLoading(false);
       Swal.fire({
         position: 'center',
@@ -87,6 +90,7 @@ const saveUser = ()=>{
   })
   .catch((err)=>{
     setLoading(false);
+    alert('Retornou catch');
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
