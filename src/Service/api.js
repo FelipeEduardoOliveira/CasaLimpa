@@ -1,7 +1,6 @@
 import firebase from "./firebase";
 
 export async function cadastraUser(nome, email, endereco, celular, tipo, uid) {
-  alert("Chamou a API");
   return await firebase
     .firestore()
     .collection("cadastraUsuario")

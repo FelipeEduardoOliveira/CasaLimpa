@@ -33,7 +33,6 @@ export default function Usuarios(){
         })
         .catch((err)=>{
             console.log(err);
-            alert('Algo deu errado')
         });
       }
       
