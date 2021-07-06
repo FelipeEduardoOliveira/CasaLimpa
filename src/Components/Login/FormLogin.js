@@ -14,6 +14,12 @@ export const FormLoginContainer = styled.div`
 export const FormLoginLogo = styled.div`
   position: absolute;
   top: -30px;
+
+  img{
+    width: 64px;
+    height: 64px;
+    border-radius: 200%;
+  }
 `;
 export const FormLoginTitleHeader = styled.div`
   width: 100%;
@@ -71,17 +77,16 @@ export const FormLoginInput = styled.div`
 `;
 export const FormLoginRememberAndForgot = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
-  margin: 1.8rem 0;
+  margin-bottom: 1.8rem;
   font-size: 0.845rem;
-  /* background-color: #edf0f5; */
   color: #303e67;
   letter-spacing: 0.1px;
   line-height: 1.5;
   label,
-  input {
+  input, a {
     cursor: pointer;
   }
 `;

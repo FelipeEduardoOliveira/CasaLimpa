@@ -67,6 +67,16 @@ export async function LogIn(email, password) {
     });
 }
 
+
+export async function ForgotPassword(email) {
+  return await firebase
+    .auth()
+    .sendPasswordResetEmail(email)
+    
+}
+
+
+
 export async function logOut() {
   await firebase
     .auth()
