@@ -84,9 +84,9 @@ function FormLogin() {
 
     if (email !== "" && pass !== "") {
       LogIn(email, pass)
-        .then((response) => {
+        .then(async (response) => {
           if (response.code === "auth/invalid-email") {
-            Swal.fire({
+          await  Swal.fire({
               icon: "warning",
               title: "Oops...",
               text: "Email nao cadastrado",
@@ -94,7 +94,7 @@ function FormLogin() {
             setLoading(false);
           }
           if (response.code === "auth/wrong-password") {
-            Swal.fire({
+           await Swal.fire({
               icon: "warning",
               title: "Oops...",
               text: "Senha inválida",
