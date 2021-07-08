@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
-import {DeletUsers} from '../../Service/api';
+import { DeletUsers, UpdateUser } from '../../Service/api';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -12,93 +12,149 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EmailIcon from '@material-ui/icons/Email';
+import WarningIcon from '@material-ui/icons/Warning';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import Swal from 'sweetalert2';
 import NoPhoto from '../../assets/noPhoto.jpg';
+import { useEffect } from 'react';
 
 
-function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
+function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizado }) {
 
+  const [autorizacaoDoUsuario, setAutorizacaoDoUsuario] = useState('');
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-          maxWidth: 300,
-          margin:'10px 10px'
-        },
-        media: {
-          height: 0,
-          paddingTop: '56.25%', // 16:9
-        },
-        avatar: {
-          backgroundColor: '#69cf5f',
-        },
-      }));
-      
-
-        const classes = useStyles();
-      
-
-        const sendWhatsApp=(phone, nome)=>{
-            const text = `Olá ${nome}, somos da casa limpa`;
-
-            window.open(`https://api.whatsapp.com/send?phone=55${phone}&text=${text}`);
+  useEffect(()=>{
+    if (autorizado === 'Não Cadastrado') {
+          setAutorizacaoDoUsuario('Cadastrado')
         }
 
-        const sendEmail = (email)=>{
-
-            const titulo = 'Casa Limpa informa';
-
-            window.open(`mailto:${email}?subject=${titulo}`);
+        if (autorizado === 'Parceiro') {
+          setAutorizacaoDoUsuario('Autorizado')
         }
-        const deleteUser = (id)=>{
+  })
 
-          
-             Swal.fire({
-              title: 'Tem certeza?',
-              text: `Você está prestes a excluir o usuario: ${name}`,
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Sim, deletar'
-            }).then((result) => {
-              if (result.isConfirmed) {
-               
-                DeletUsers(id)
-                .then(async()=>{
-                  await Swal.fire(
-                    'Deleted!',
-                    'O usuario foi excluido.',
-                    'success'
-                  )
-                  window.location.reload();
-                })
-                .catch(async()=>{
 
-                  await Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Algo deu errado, tente novamente mais tarde',
-                  })
-                  window.location.reload();
-                });
-                
-              }
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      maxWidth: 300,
+      margin: '10px 10px'
+    },
+    media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+    },
+    avatar: {
+      backgroundColor: '#69cf5f',
+    },
+  }));
+
+
+  const classes = useStyles();
+
+
+  const sendWhatsApp = (phone, nome) => {
+    const text = `Olá ${nome}, somos da casa limpa`;
+
+    window.open(`https://api.whatsapp.com/send?phone=55${phone}&text=${text}`);
+  }
+
+  const sendEmail = (email) => {
+
+    const titulo = 'Casa Limpa informa';
+
+    window.open(`mailto:${email}?subject=${titulo}`);
+  }
+  const deleteUser = (id) => {
+
+
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: `Você está prestes a excluir o usuario: ${name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        DeletUsers(id)
+          .then(async () => {
+            await Swal.fire(
+              'Deleted!',
+              'O usuario foi excluido.',
+              'success'
+            )
+            window.location.reload();
+          })
+          .catch(async () => {
+
+            await Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Algo deu errado, tente novamente mais tarde',
             })
-            
-        }
+            window.location.reload();
+          });
 
-    return(
-        <Card className={classes.root}>
+      }
+    })
+
+  }
+
+  const autorizaUser = (autorizado) => {
+
+     
+
+
+
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: `Você está prestes a autorizar o usuário: ${name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, autorizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        UpdateUser(id, autorizacaoDoUsuario)
+          .then(async () => {
+            await Swal.fire(
+              'Autorizado',
+              'O usuario foi autorizado com sucesso.',
+              'success'
+            )
+            window.location.reload();
+          })
+          .catch(async () => {
+
+            await Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Algo deu errado, tente novamente mais tarde',
+            })
+            window.location.reload();
+          });
+
+      }
+    })
+  }
+
+  return (
+    <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {nome.substr(0,2).toLocaleUpperCase()}
-            
+            {nome.substr(0, 2).toLocaleUpperCase()}
+
           </Avatar>
         }
         title={nome}
-        subheader={tipo}
+        subheader={`${tipo} - ${autorizado}`}
+        
+
       />
       <CardMedia
         className={classes.media}
@@ -107,35 +163,41 @@ function ListUser({nome, tipo, celular, endereco, email, id, fotoUrl}){
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-            Telefone: {celular}
+          Telefone: {celular}
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
-            Endereço: {endereco}
+          Endereço: {endereco}
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
-            Email: {email}
+          Email: {email}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         {/* <IconButton aria-label="edit" onClick={()=>{console.log(fotoUrl)}}>
           <EditIcon />
         </IconButton> */}
-        <IconButton aria-label="delete" onClick={()=>deleteUser(id)}>
-          <DeleteIcon className='Lixeira'/>
+        <IconButton aria-label="delete" onClick={() => deleteUser(id)}>
+          <DeleteIcon className='Lixeira' />
         </IconButton>
-        <IconButton aria-label="whatsApp" onClick={()=>sendWhatsApp(celular, nome)}>
-          <WhatsAppIcon className='whatsApp'/>
+        <IconButton aria-label="whatsApp" onClick={() => sendWhatsApp(celular, nome)}>
+          <WhatsAppIcon className='whatsApp' />
         </IconButton>
-        <IconButton aria-label="email" onClick={()=>sendEmail(email)}>
-          <EmailIcon className='Email'/>
+        <IconButton aria-label="email" onClick={() => sendEmail(email)}>
+          <EmailIcon className='Email' />
         </IconButton>
-       
+        {
+          autorizado === 'Não Cadastrado' || autorizado === 'Parceito' ? '' :
+            <IconButton aria-label="email" onClick={() => autorizaUser(autorizado)}>
+              <WarningIcon className='Aviso' />
+            </IconButton>
+        }
+
       </CardActions>
-      
+
     </Card>
-    );
+  );
 }
 
 export default ListUser;

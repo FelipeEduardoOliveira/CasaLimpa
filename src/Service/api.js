@@ -1,6 +1,6 @@
 import firebase from "./firebase";
 
-export async function cadastraUser(nome, email, endereco, celular, tipo, uid) {
+export async function cadastraUser(nome, email, endereco, celular, tipo, uid, autorizado) {
   return await firebase
     .firestore()
     .collection("cadastraUsuario")
@@ -11,6 +11,7 @@ export async function cadastraUser(nome, email, endereco, celular, tipo, uid) {
       endereco,
       celular,
       tipo,
+      autorizado,
     });
 }
 
@@ -39,19 +40,18 @@ export async function DeletUsers(id) {
     .delete();
 }
 
-// export async function newUser(email, password) {
-//   return await firebase
-//     .auth()
-//     .signInWithEmailAndPassword(email, password)
-//     .then((response) => {
-//       console.log(response);
-//       alert("Logado");
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       alert("Erro");
-//     });
-// }
+export async function UpdateUser(id, autorizacaoDoUsuario) {
+
+  return await firebase
+    .firestore()
+    .collection("cadastraUsuario")
+    .doc(`${id}`)
+    .update({
+      autorizado: autorizacaoDoUsuario
+    })
+}
+
+
 export async function LogIn(email, password) {
   return await firebase
     .auth()

@@ -25,7 +25,8 @@ export default function Usuarios(){
                     email: doc.data().email,
                     endereco: doc.data().endereco,
                     celular: doc.data().celular,
-                    fotoUrl: doc.data().fotoUrl
+                    fotoUrl: doc.data().fotoUrl,
+                    autorizado:doc.data().autorizado
                 })
             })
             setName(list);
@@ -136,6 +137,7 @@ export default function Usuarios(){
                             endereco={item.endereco}
                             email={item.email}
                             fotoUrl={item.fotoUrl}
+                            autorizado={item.autorizado}
                             />
                         );
 

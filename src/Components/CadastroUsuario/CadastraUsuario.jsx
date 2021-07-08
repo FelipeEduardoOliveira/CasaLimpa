@@ -29,6 +29,7 @@ const [email, setEmail] = useState('');
 const [celular, setCelular] = useState('');
 const [endereco, setEndereco] = useState('');
 const [tipo, setTipo] = useState('');
+const [autorizado, setAutorizado] = useState('');
 const [loading,setLoading]= useState(false);
 
 
@@ -42,6 +43,7 @@ const cleanFields = ()=>{
     setTipo('');
     setPhoto('');
     setPhotoName('');
+    setAutorizado('')
 }
 
 useEffect(()=>{
@@ -54,7 +56,7 @@ const saveUser = ()=>{
 
   const uid = Date.now();
 
-  if(name === ''|| email === '' || celular === '' || endereco === '' || tipo === ''){
+  if(name === ''|| email === '' || celular === '' || endereco === '' || tipo === '' || autorizado ===''){
     Swal.fire({
       icon: 'warning',
       title: 'Oops...',
@@ -64,7 +66,7 @@ const saveUser = ()=>{
   }
 
   setLoading(true);
-  cadastraUser(name, email, endereco, celular, tipo, uid)
+  cadastraUser(name, email, endereco, celular, tipo, uid, autorizado)
   .then(async (response)=>{
     
     console.log(response);
@@ -221,13 +223,66 @@ setPhotoName(e.target.files[0].name);
 
           <div>
           <FormControl component="fieldset">
-     <FormLabel component="legend">Tipo</FormLabel>
+     <FormLabel component="legend">Função</FormLabel>
      <RadioGroup aria-label="gender" name="gender1" onChange={(e)=>setTipo(e.target.value)} value={tipo}>
        <FormControlLabel value="Gerador" control={<Radio />} label="Gerador" />
        <FormControlLabel value="Catador" control={<Radio />} label="Catador" />
        <FormControlLabel value="Deposito" control={<Radio />} label="Deposito" />
        <FormControlLabel value="Coletador" control={<Radio />} label="Coletador" />
      </RadioGroup>
+   </FormControl>
+
+   <FormControl component="fieldset">
+     
+
+     {
+       tipo === 'Gerador'&&(
+         <>
+         <FormLabel component="legend">Tipo</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1"  onChange={(e)=>setAutorizado(e.target.value)} value={autorizado}>
+         <FormControlLabel value="comercial" control={<Radio />} label="comercial" />
+          <FormControlLabel value="Residencial" control={<Radio />} label="Residencial" />
+         </RadioGroup>
+         </>
+       )
+     }
+
+      {
+       tipo === 'Catador'&&(
+         <>
+         <FormLabel component="legend">Tipo</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" onChange={(e)=>setAutorizado(e.target.value)} value={autorizado}>
+         <FormControlLabel value="Cadastrado" control={<Radio />} label="Cadastrado" />
+          <FormControlLabel value="Não Cadastrado" control={<Radio />} label="Não Cadastrado" />
+         </RadioGroup>
+         </>
+       )
+     }
+
+      {
+       tipo === 'Deposito'&&(
+         <>
+         <FormLabel component="legend">Tipo</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" onChange={(e)=>setAutorizado(e.target.value)} value={autorizado}>
+         <FormControlLabel value="Autorizado" control={<Radio />} label="Autorizado " />
+          <FormControlLabel value="Parceiro" control={<Radio />} label="Parceiro" />
+         </RadioGroup>
+         </>
+       )
+     }
+
+     {
+       tipo === 'Coletador'&&(
+         <>
+         <FormLabel component="legend">Tipo</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" onChange={(e)=>setAutorizado(e.target.value)} value={autorizado}>
+         <FormControlLabel value="Cadastrado" control={<Radio />} label="Cadastrado" />
+          <FormControlLabel value="Não Cadastrado" control={<Radio />} label="Não Cadastrado" />
+         </RadioGroup>
+         </>
+       )
+     }
+     
    </FormControl>
           </div>
           </div>
