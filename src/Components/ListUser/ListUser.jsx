@@ -23,14 +23,14 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
 
   const [autorizacaoDoUsuario, setAutorizacaoDoUsuario] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     if (autorizado === 'Não Cadastrado') {
-          setAutorizacaoDoUsuario('Cadastrado')
-        }
+      setAutorizacaoDoUsuario('Cadastrado')
+    }
 
-        if (autorizado === 'Parceiro') {
-          setAutorizacaoDoUsuario('Autorizado')
-        }
+    if (autorizado === 'Parceiro') {
+      setAutorizacaoDoUsuario('Autorizado')
+    }
   })
 
 
@@ -104,7 +104,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
 
   const autorizaUser = (autorizado) => {
 
-     
+
 
 
 
@@ -153,7 +153,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
         }
         title={nome}
         subheader={`${tipo} - ${autorizado}`}
-        
+
 
       />
       <CardMedia
@@ -188,10 +188,11 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
           <EmailIcon className='Email' />
         </IconButton>
         {
-          autorizado === 'Não Cadastrado' || autorizado === 'Parceito' ? '' :
-            <IconButton aria-label="email" onClick={() => autorizaUser(autorizado)}>
-              <WarningIcon className='Aviso' />
-            </IconButton>
+          autorizado === 'Não Cadastrado' || autorizado === 'Parceito' ? <IconButton aria-label="email" onClick={() => autorizaUser(autorizado)}>
+            <WarningIcon className='Aviso' />
+          </IconButton> :
+            ""
+
         }
 
       </CardActions>
