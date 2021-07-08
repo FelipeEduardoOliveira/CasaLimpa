@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EmailIcon from '@material-ui/icons/Email';
 import WarningIcon from '@material-ui/icons/Warning';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
 import Swal from 'sweetalert2';
 import NoPhoto from '../../assets/noPhoto.jpg';
 import { useEffect } from 'react';
@@ -69,7 +70,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
 
     Swal.fire({
       title: 'Tem certeza?',
-      text: `Você está prestes a excluir o usuario: ${name}`,
+      text: `Você está prestes a excluir o usuario: ${nome}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -110,7 +111,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
 
     Swal.fire({
       title: 'Tem certeza?',
-      text: `Você está prestes a autorizar o usuário: ${name}`,
+      text: `Você está prestes a autorizar o usuário: ${nome}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -137,6 +138,34 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
             })
             window.location.reload();
           });
+
+      }
+    })
+  }
+
+
+
+  const localizaUser = (location) => {
+
+
+
+let locationUser = location.replaceAll(' ', "+");
+
+const urlMaps = `https://www.google.com.br/maps/place/${locationUser}`
+
+
+    Swal.fire({
+      title: 'Você quer ver a localização do usuario?',
+      text: `Você sera direcionado para p endereço ${location} do usuario ${nome}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, autorizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        window.open(urlMaps, "_blank");
 
       }
     })
@@ -187,13 +216,15 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
         <IconButton aria-label="email" onClick={() => sendEmail(email)}>
           <EmailIcon className='Email' />
         </IconButton>
-        {
+       {
           autorizado === 'Não Cadastrado' || autorizado === 'Parceito' ? <IconButton aria-label="email" onClick={() => autorizaUser(autorizado)}>
             <WarningIcon className='Aviso' />
           </IconButton> :
             ""
-
         }
+         <IconButton aria-label="email" onClick={() => localizaUser(endereco)}>
+          <NotListedLocationIcon className='Email' />
+        </IconButton>
 
       </CardActions>
 
