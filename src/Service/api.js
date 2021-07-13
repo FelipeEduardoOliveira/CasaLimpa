@@ -1,6 +1,16 @@
 import firebase from "./firebase";
 
-export async function cadastraUser(nome, email, endereco, celular, tipo, uid, autorizado) {
+export async function cadastraUser(
+  nome,
+  email,
+  endereco,
+  celular,
+  tipo,
+  uid,
+  autorizado
+) {
+  console.log("Chamou a função");
+
   return await firebase
     .firestore()
     .collection("cadastraUsuario")
@@ -41,16 +51,14 @@ export async function DeletUsers(id) {
 }
 
 export async function UpdateUser(id, autorizacaoDoUsuario) {
-
   return await firebase
     .firestore()
     .collection("cadastraUsuario")
     .doc(`${id}`)
     .update({
-      autorizado: autorizacaoDoUsuario
-    })
+      autorizado: autorizacaoDoUsuario,
+    });
 }
-
 
 export async function LogIn(email, password) {
   return await firebase
@@ -67,15 +75,9 @@ export async function LogIn(email, password) {
     });
 }
 
-
 export async function ForgotPassword(email) {
-  return await firebase
-    .auth()
-    .sendPasswordResetEmail(email)
-    
+  return await firebase.auth().sendPasswordResetEmail(email);
 }
-
-
 
 export async function logOut() {
   await firebase

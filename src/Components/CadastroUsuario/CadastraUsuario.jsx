@@ -53,6 +53,7 @@ useEffect(()=>{
 },[rodarIcon])
 
 const saveUser = ()=>{
+  console.log('Clickou no botão')
 
   const uid = Date.now();
 
@@ -66,11 +67,15 @@ const saveUser = ()=>{
   }
 
   setLoading(true);
-  cadastraUser(name, email, endereco, celular, tipo, uid, autorizado)
-  .then(async (response)=>{
+
+  try {
+   const response =  cadastraUser(name, email, endereco, celular, tipo, uid, autorizado)
+
+    console.log('Caiu no then')
     
     console.log(response);
-  await cleanFields();
+    return
+   cleanFields();
 
     if(imageStorage){
       uploadPhoto(imageStorage, uid);
@@ -84,17 +89,49 @@ const saveUser = ()=>{
         timer: 1500
       })
     }
-    
-  })
-  .catch((err)=>{
+  } catch (err) {
+
     setLoading(false);
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: 'Algo deu errado, tente novamente mais tarde',
     })
-    console.log(err);    
-  })
+    console.log(err);  
+    console.log('Caiu no catch') 
+    
+  }
+  // cadastraUser(name, email, endereco, celular, tipo, uid, autorizado)
+  // .then(async (response)=>{
+  //   console.log('Caiu no then')
+    
+  //   console.log(response);
+  // await cleanFields();
+
+  //   if(imageStorage){
+  //     uploadPhoto(imageStorage, uid);
+  //   }else{
+  //     setLoading(false);
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'success',
+  //       title: 'Cadastrado com sucesso!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //   }
+    
+  // })
+  // .catch((err)=>{
+  //   setLoading(false);
+  //   Swal.fire({
+  //     icon: 'error',
+  //     title: 'Oops...',
+  //     text: 'Algo deu errado, tente novamente mais tarde',
+  //   })
+  //   console.log(err);  
+  //   console.log('Caiu no catch')  
+  // })
 }
 
 async function uploadPhoto(imageStorage, uid) {
