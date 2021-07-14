@@ -26,17 +26,17 @@ export default function Header(){
                <span>
                    |
                </span>
-               <Link to ='/'>
+               <Link to='/'>
                    <PersonIcon/>
                    Usuarios
                </Link>
                <span>
                    |
                </span>
-               <Link onClick={()=>logOut()}>
+               <a onClick={()=>logOut()}>
                    <ExitToAppIcon/>
                    LogOut
-               </Link>
+               </a>
            </div>
         </div>
     );

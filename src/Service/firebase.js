@@ -8,6 +8,7 @@ let firebaseConfig = {
   storageBucket: "casalimpa-e1fca.appspot.com",
   messagingSenderId: "1090198646474",
   appId: "1:1090198646474:web:07d0366c6d4461a3a30e33",
+  
 };
 
 if (!firebase.apps.length) {

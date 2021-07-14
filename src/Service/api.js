@@ -1,3 +1,4 @@
+import { useState } from "react";
 import firebase from "./firebase";
 
 export async function cadastraUser(
@@ -12,49 +13,31 @@ export async function cadastraUser(
   console.log("Chamou a função");
 
   return await firebase
-    .firestore()
-    .collection("cadastraUsuario")
-    .doc(`${uid}`)
-    .set({
-      nome,
-      email,
-      endereco,
-      celular,
-      tipo,
-      autorizado,
-    });
+      .database()
+      .ref("User/" + uid)
+      .set({
+        nome,
+        email,
+        endereco,
+        celular,
+        tipo,
+        autorizado,
+      });
 }
 
-export async function GetUsers(data) {
-  console.log(data);
 
-  if (data === undefined || data.length === 0) {
-    return await firebase
-      .firestore()
-      .collection("cadastraUsuario")
-      // .where("tipo", "not-in", ["Gerador"])
-      .get();
-  } else {
-    return await firebase
-      .firestore()
-      .collection("cadastraUsuario")
-      .where("tipo", "not-in", data)
-      .get();
-  }
-}
 export async function DeletUsers(id) {
   return await firebase
-    .firestore()
-    .collection("cadastraUsuario")
-    .doc(id)
-    .delete();
+    .database()
+    .ref("User/" + id)
+    .remove();
 }
 
 export async function UpdateUser(id, autorizacaoDoUsuario) {
   return await firebase
-    .firestore()
-    .collection("cadastraUsuario")
-    .doc(`${id}`)
+    .database()
+    .ref("User")
+    .child(`${id}`)
     .update({
       autorizado: autorizacaoDoUsuario,
     });

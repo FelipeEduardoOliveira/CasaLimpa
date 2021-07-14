@@ -68,6 +68,9 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
   const deleteUser = (id) => {
 
 
+
+
+
     Swal.fire({
       title: 'Tem certeza?',
       text: `Você está prestes a excluir o usuario: ${nome}`,
@@ -86,7 +89,6 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
               'O usuario foi excluido.',
               'success'
             )
-            window.location.reload();
           })
           .catch(async () => {
 
@@ -95,7 +97,6 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
               title: 'Oops...',
               text: 'Algo deu errado, tente novamente mais tarde',
             })
-            window.location.reload();
           });
 
       }
@@ -127,7 +128,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
               'O usuario foi autorizado com sucesso.',
               'success'
             )
-            window.location.reload();
+            // window.location.reload();
           })
           .catch(async () => {
 
@@ -136,7 +137,7 @@ function ListUser({ nome, tipo, celular, endereco, email, id, fotoUrl, autorizad
               title: 'Oops...',
               text: 'Algo deu errado, tente novamente mais tarde',
             })
-            window.location.reload();
+            // window.location.reload();
           });
 
       }

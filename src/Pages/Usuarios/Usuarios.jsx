@@ -6,35 +6,44 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { GetUsers } from '../../Service/api';
 import './style.css';
+import firebase from "../../Service/firebase";
+import { Select } from '@material-ui/core';
 
 export default function Usuarios(){
-
     const [nameUser, setName] = useState('');
     const [data, setData] = useState([]);
+    const [filterField, setFilterField] = useState('');
 
-      const listUser = (data)=>{
-        GetUsers(data)
-            .then((snapshot)=>{
-            let list = [];
 
-            snapshot.forEach((doc)=>{
-                list.push({
-                    id: doc.id,
-                    nome: doc.data().nome,
-                    tipo: doc.data().tipo,
-                    email: doc.data().email,
-                    endereco: doc.data().endereco,
-                    celular: doc.data().celular,
-                    fotoUrl: doc.data().fotoUrl,
-                    autorizado:doc.data().autorizado
-                })
-            })
-            setName(list);
-        
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
+      const listUser = async(data)=>{
+
+
+      
+
+  await firebase.database().ref('User').on('value', (snapshot)=>{
+     
+     setData([]);
+     snapshot.forEach((chilItem)=>{
+let dados = {
+    key: chilItem.key,
+    nome: chilItem.val().nome,
+    tipo: chilItem.val().tipo,
+    fotoUrl: chilItem.val().fotoUrl,
+    endereco: chilItem.val().endereco,
+    email: chilItem.val().email,
+    celular: chilItem.val().celular,
+    autorizado: chilItem.val().autorizado
+};
+
+setData(oldArray => [...oldArray, dados]);
+
+     })
+  })
+
+
+
+
+
       }
       
 
@@ -61,64 +70,27 @@ export default function Usuarios(){
             }
       }
 
+
     return(
         <div className='UsuariosContainerList'>
 
 <div className='FiltroClass'>
                
 
-                <label>
-                        <Checkbox
-                            // checked={(e)=>changeCkecked(e)}
-                            onChange={(e)=>changeCkecked(e)}
-                            name="Catador"
-                            color="primary"
-                        />
+               <select onChange={(e)=>setFilterField(e.target.value)}>
+                   <option defaultValue disabled> Selecione um filtro</option>
+                   <option value=''> Sem filtro</option>
+                   <option value='Deposito'> Deposito</option>
+                   <option value='Coletador'> Coletador</option>
+                   <option value='Gerador'> Gerador</option>
+                   <option value='Catador'> Catador</option>
+               </select>
 
-                Catador
-                </label>
-
-                <label>
-                        <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e)=>changeCkecked(e)}
-                            name="Deposito"
-                            color="primary"
-                        />
-
-                Deposito
-                </label>
-
-                <label>
-                        <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e)=>changeCkecked(e)}
-                            name="Coletador"
-                            color="primary"
-                        />
-
-                Coletador
-                </label>
-
-            <label>
-                    <Checkbox
-                        // checked={state.checkedB}
-                        onChange={(e)=>changeCkecked(e)}
-                        name="Gerador"
-                        color="primary"
-                    />
-
-            Gerador
-            </label>
-
-<Button onClick={()=>listUser(data)}>
-  <SearchIcon/>
-</Button>
 
             </div>
 
-            {
-                nameUser === '' ?
+          {
+                data === [] ?
                 <div>
                     <h1>Carregando</h1>
                 </div>
@@ -126,11 +98,29 @@ export default function Usuarios(){
                 <div className='containerListUser'>
                     
                     {
-                    nameUser.map((item)=>{
+                    data.map((item, key)=>{
 
-                        return(
+                            if(filterField !== ''){
+
+                                if(filterField === item.tipo){
+                                        return(
+                                            <ListUser 
+                            id={item.key}
+                            nome={item.nome}
+                            tipo={item.tipo}
+                            celular={item.celular}
+                            endereco={item.endereco}
+                            email={item.email}
+                            fotoUrl={item.fotoUrl}
+                            autorizado={item.autorizado}
+                            />
+                                        )
+                                }
+
+                            }else{
+                                return(
                             <ListUser 
-                            id={item.id}
+                            id={item.key}
                             nome={item.nome}
                             tipo={item.tipo}
                             celular={item.celular}
@@ -140,6 +130,8 @@ export default function Usuarios(){
                             autorizado={item.autorizado}
                             />
                         );
+                            }
+                        
 
             })}
             
@@ -147,8 +139,6 @@ export default function Usuarios(){
                 </div>
                 
             }
-           
-           
 
         </div>
     );
